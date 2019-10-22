@@ -577,6 +577,10 @@ def select_highlighted_skip_previous_word_helper(view, selections, counter):
 
 class WordHighlightListener(sublime_plugin.EventListener):
 
+    def on_pre_close(self, view):
+        if view.id() in g_view_selections:
+            del g_view_selections[view.id()]
+
     def on_text_command(self, view, command_name, args):
         # print('command_name', command_name, args)
 
