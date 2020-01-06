@@ -692,6 +692,10 @@ class WordHighlightListener(sublime_plugin.EventListener):
         elif command_name == 'move':
             clear_line_skipping( view )
 
+        elif command_name == 'next_bookmark' or command_name == 'prev_bookmark':
+            clear_line_skipping( view )
+            sublime.set_timeout( lambda: self.on_selection_modified( view ), 1000 )
+
     def on_query_context(self, view, key, operator, operand, match_all):
 
         if key == 'is_highlight_words_on_selection_working':
