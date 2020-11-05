@@ -849,8 +849,12 @@ def highlight_occurences(view):
                 draw_outlined = sublime.DRAW_NO_FILL if Pref.draw_outlined( settings ) else 0
 
             gutter = Pref.icon_type_on_gutter( settings ) if Pref.mark_occurrences_on_gutter( settings ) else ""
+            color_scope_name = Pref.color_scope_name( settings )
 
-            view.add_regions( 'HighlightWordsOnSelection', word_regions, Pref.color_scope_name( settings ), gutter, draw_outlined )
+            if not isinstance(gutter, str): gutter = ""
+            if not isinstance(color_scope_name, str): color_scope_name = "comment"
+
+            view.add_regions( 'HighlightWordsOnSelection', word_regions, color_scope_name, gutter, draw_outlined )
             show_status_bar( view, selections, word_regions )
 
         else:
